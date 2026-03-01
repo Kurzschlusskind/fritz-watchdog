@@ -1,0 +1,33 @@
+# Git metadata
+.git/
+.gitignore
+
+# Logs and runtime data
+logs/
+*.log
+
+# Documentation
+README.md
+*.md
+
+# Environment files
+.env
+.env.example
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Test and CI artifacts
+.pytest_cache/
+.coverage
+htmlcov/
