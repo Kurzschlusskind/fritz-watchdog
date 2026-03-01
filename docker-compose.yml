@@ -1,0 +1,44 @@
+services:
+  fritzwatchdog:
+    build: .
+    image: fritzwatchdog:latest
+    container_name: fritzwatchdog
+    network_mode: host
+    restart: unless-stopped
+
+    volumes:
+      - ./logs:/var/log/fritzwatchdog
+
+    environment:
+      # FRITZ!Box connection settings
+      FRITZ_ADDRESS: "192.168.178.1"
+      FRITZ_PORT: "49000"
+      FRITZ_USER: "watchdog"
+      FRITZ_PASSWORD: "CHANGEME"
+
+      # Probe settings
+      PROBE_INTERVAL: "60"
+      FAIL_THRESHOLD: "3"
+      ICMP_TARGETS: "8.8.8.8,1.1.1.1"
+      DNS_TARGET: "9.9.9.9"
+      DNS_QUERY: "google.com"
+      DNS_PORT: "53"
+
+      # Recovery settings
+      RECONNECT_HOLD: "120"
+      REBOOT_HOLD: "180"
+      ACTION_COOLDOWN: "600"
+      MAX_ESCALATIONS: "5"
+
+      # Scheduled maintenance (DAY/HH:MM — e.g. TUE/04:00)
+      SCHEDULED_REBOOT: "TUE/04:00"
+
+      # Logging
+      LOG_DIR: "/var/log/fritzwatchdog"
+      NOMINAL_INTERVAL: "600"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
